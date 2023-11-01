@@ -10,6 +10,7 @@ public abstract class Projectile implements Renderable, GameObject {
     private int lives = 1;
     private Vector2D position;
     private final Image image;
+    private String imageName;
 
     public Projectile(Vector2D position, Image image) {
         this.position = position;
@@ -24,6 +25,10 @@ public abstract class Projectile implements Renderable, GameObject {
     @Override
     public Image getImage() {
         return image;
+    }
+
+    public void setImageName(String imageName){
+        this.imageName = imageName;
     }
 
     @Override

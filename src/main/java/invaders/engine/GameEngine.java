@@ -1,9 +1,12 @@
 package invaders.engine;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import invaders.ConfigReader;
+import invaders.GameState;
+import invaders.Observer;
 import invaders.builder.BunkerBuilder;
 import invaders.builder.Director;
 import invaders.builder.EnemyBuilder;
@@ -35,6 +38,8 @@ public class GameEngine {
 	private int gameWidth;
 	private int gameHeight;
 	private int timer = 45;
+	private static final Duration FRAME_DURATION = Duration.ofMillis(17);
+	private GameState gameState = new GameState();
 
 	public GameEngine(String config){
 		// Read the config here
@@ -73,6 +78,9 @@ public class GameEngine {
 	 * Updates the game/simulation
 	 */
 	public void update(){
+		gameState.incrementGameTime(FRAME_DURATION);
+		gameState.notifyObservers();
+
 		timer+=1;
 
 		movePlayer();
@@ -93,6 +101,19 @@ public class GameEngine {
 					if(renderableA.isColliding(renderableB) && (renderableA.getHealth()>0 && renderableB.getHealth()>0)) {
 						renderableA.takeDamage(1);
 						renderableB.takeDamage(1);
+
+						if(renderableA.getImageName().equals("fast_alien") || renderableB.getImageName().equals("fast_alien")){
+							gameState.increaseScore(4);
+						}
+						if(renderableA.getImageName().equals("slow_alien") || renderableB.getImageName().equals("slow_alien")){
+							gameState.increaseScore(3);
+						}
+						if(renderableA.getImageName().equals("fast_bullet") || renderableB.getImageName().equals("fast_bullet")){
+							gameState.increaseScore(2);
+						}
+						if(renderableA.getImageName().equals("slow_bullet") || renderableB.getImageName().equals("slow_bullet")){
+							gameState.increaseScore(1);
+						}
 					}
 				}
 			}
@@ -194,5 +215,9 @@ public class GameEngine {
 
 	public Player getPlayer() {
 		return player;
+	}
+
+	public GameState getGameState(){
+		return this.gameState;
 	}
 }

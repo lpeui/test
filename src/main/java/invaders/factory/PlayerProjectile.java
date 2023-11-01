@@ -9,6 +9,7 @@ import java.io.File;
 
 public class PlayerProjectile extends Projectile {
     private ProjectileStrategy strategy;
+    private String imageName;
 
     public PlayerProjectile(Vector2D position, ProjectileStrategy strategy) {
         super(position, new Image(new File("src/main/resources/player_shot.png").toURI().toString(), 10, 10, true, true));
@@ -22,6 +23,12 @@ public class PlayerProjectile extends Projectile {
             this.takeDamage(1);
         }
     }
+
+    @Override
+    public String getImageName(){
+        return "PlayerProjectile";
+    }
+
     @Override
     public String getRenderableObjectName() {
         return "PlayerProjectile";

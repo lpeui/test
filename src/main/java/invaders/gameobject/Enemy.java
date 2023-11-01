@@ -18,6 +18,7 @@ public class Enemy implements GameObject, Renderable {
     private Vector2D position;
     private int lives = 1;
     private Image image;
+    private String imageName;
     private int xVel = -1;
 
     private ArrayList<Projectile> enemyProjectile;
@@ -42,6 +43,11 @@ public class Enemy implements GameObject, Renderable {
         if(enemyProjectile.size()<3){
             if(this.isAlive() &&  random.nextInt(120)==20){
                 Projectile p = projectileFactory.createProjectile(new Vector2D(position.getX() + this.image.getWidth() / 2, position.getY() + image.getHeight() + 2),projectileStrategy, projectileImage);
+                if(this.imageName.equals("fast_alien")){
+                    p.setImageName("fast_bullet");
+                }else if(this.imageName.equals("slow_alien")){
+                    p.setImageName("slow_bullet");
+                }
                 enemyProjectile.add(p);
                 engine.getPendingToAddGameObject().add(p);
                 engine.getPendingToAddRenderable().add(p);
@@ -138,6 +144,16 @@ public class Enemy implements GameObject, Renderable {
     public boolean isAlive() {
         return this.lives>0;
     }
+
+    @Override
+    public String getImageName(){
+        return this.imageName;
+    }
+
+    public void setImageName(String imageName){
+        this.imageName=imageName;
+    }
+
 
     public void setProjectileStrategy(ProjectileStrategy projectileStrategy) {
         this.projectileStrategy = projectileStrategy;

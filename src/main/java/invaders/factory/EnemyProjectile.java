@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 
 public class EnemyProjectile extends Projectile{
     private ProjectileStrategy strategy;
+    private String imageName;
 
     public EnemyProjectile(Vector2D position, ProjectileStrategy strategy, Image image) {
         super(position,image);
@@ -23,6 +24,16 @@ public class EnemyProjectile extends Projectile{
         }
 
     }
+
+    @Override
+    public String getImageName(){
+        return this.imageName;
+    }
+
+    public void setImageName(String imageName){
+        this.imageName= imageName;
+    }
+
     @Override
     public String getRenderableObjectName() {
         return "EnemyProjectile";

@@ -25,6 +25,7 @@ public class Player implements Moveable, Renderable {
     private final double width = 20;
     private final double height = 20;
     private final Image image;
+    private String imageName;
     private ProjectileFactory playerProjectileFactory = new PlayerProjectileFactory();
 
 
@@ -105,6 +106,11 @@ public class Player implements Moveable, Renderable {
 
     @Override
     public String getRenderableObjectName() {
+        return "Player";
+    }
+
+    @Override
+    public String getImageName(){
         return "Player";
     }
 

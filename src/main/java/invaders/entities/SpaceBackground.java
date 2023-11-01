@@ -13,6 +13,7 @@ public class SpaceBackground implements Renderable {
 	private Rectangle space;
 	private Pane pane;
     private GameEngine model;
+	private String imageName;
 
 	public SpaceBackground(GameEngine engine, Pane pane){
 		double width = pane.getWidth();
@@ -55,6 +56,11 @@ public class SpaceBackground implements Renderable {
 
 	@Override
 	public void takeDamage(double amount) {}
+
+	@Override
+	public String getImageName(){
+		return "background";
+	}
 
 	@Override
 	public double getHealth() {

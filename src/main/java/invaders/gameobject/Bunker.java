@@ -14,6 +14,7 @@ public class Bunker implements GameObject, Renderable {
     private double height;
     private int lives;
     private Image image;
+    private String imageName;
     private BunkerState state = new GreenState(this);
 
 
@@ -105,5 +106,10 @@ public class Bunker implements GameObject, Renderable {
 
     public void setState(BunkerState state) {
         this.state = state;
+    }
+
+    @Override
+    public String getImageName(){
+        return "bunker";
     }
 }

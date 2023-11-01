@@ -7,6 +7,10 @@ import invaders.ConfigReader;
 import invaders.entities.EntityViewImpl;
 import invaders.entities.SpaceBackground;
 import javafx.scene.control.Alert;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import invaders.entities.EntityView;
@@ -21,6 +25,8 @@ public class GameWindow {
 	private final int width;
     private final int height;
 	private Scene scene;
+    private Label timerLabel;
+    private Label scoreLabel;
     private Pane pane;
     private GameEngine model;
     private List<EntityView> entityViews =  new ArrayList<EntityView>();
@@ -35,8 +41,22 @@ public class GameWindow {
 		this.width =  model.getGameWidth();
         this.height = model.getGameHeight();
 
+        timerLabel = new Label("Time: 0:00");
+        timerLabel.setTextFill(Color.WHITE);
+        timerLabel.setLayoutX(10);  // Set x position
+        timerLabel.setLayoutY(10);  // Set y position
+
+        scoreLabel = new Label("Score: 0");
+        scoreLabel.setTextFill(Color.WHITE);
+        scoreLabel.setLayoutX(100);  // Set x position
+        scoreLabel.setLayoutY(10);  // Set y position
+
+
         pane = new Pane();
+        pane.getChildren().add(timerLabel);
+        pane.getChildren().add(scoreLabel);
         scene = new Scene(pane, width, height);
+
         this.background = new SpaceBackground(model, pane);
 
         KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model);
@@ -44,6 +64,14 @@ public class GameWindow {
         scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
         scene.setOnKeyReleased(keyboardInputHandler::handleReleased);
 
+    }
+
+    public Label getTimerLabel() {
+        return timerLabel;
+    }
+
+    public Label getScoreLabel() {
+        return scoreLabel;
     }
 
 	public void run() {

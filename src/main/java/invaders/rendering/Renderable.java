@@ -11,6 +11,8 @@ public interface Renderable {
 
     public Image getImage();
 
+    public String getImageName();
+
     public double getWidth();
     public double getHeight();
 

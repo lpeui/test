@@ -35,10 +35,12 @@ public class EnemyBuilder extends Builder{
     public void buildImageAndStrategy(String strategy){
         if(strategy.equals("fast_straight")){
             enemy.setProjectileStrategy(new FastProjectileStrategy());
+            enemy.setImageName("fast_alien");
             enemy.setImage(new Image(new File("src/main/resources/fast_alien.png").toURI().toString(), 20, 20, true, true));
             enemy.setProjectileImage(new Image(new File("src/main/resources/alien_shot_fast.png").toURI().toString(), 10, 10, true, true));
         }else if(strategy.equals("slow_straight")){
             enemy.setProjectileStrategy(new SlowProjectileStrategy());
+            enemy.setImageName("slow_alien");
             enemy.setImage(new Image(new File("src/main/resources/slow_alien.png").toURI().toString(), 20, 20, true, true));
             enemy.setProjectileImage(new Image(new File("src/main/resources/alien_shot_slow.png").toURI().toString(), 10, 10, true, true));
 
