@@ -29,6 +29,19 @@ public class Bunker implements GameObject, Renderable {
 
     }
 
+    @Override
+    public Bunker deepCopy() {
+        Bunker copiedBunker = new Bunker();
+        copiedBunker.setPosition(new Vector2D(this.position.getX(), this.position.getY()));
+        copiedBunker.setWidth((int) this.width);
+        copiedBunker.setHeight((int) this.height);
+        copiedBunker.setLives(this.lives);
+        copiedBunker.setImage(new Image(this.image.getUrl(), this.width, this.height, true, true)); // Assuming Image copy by URL is sufficient
+        copiedBunker.setState(this.state.deepCopy(copiedBunker));
+
+        return copiedBunker;
+    }
+
     public void setPosition(Vector2D position) {
         this.position = position;
     }

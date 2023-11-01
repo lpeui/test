@@ -55,4 +55,6 @@ public interface Renderable {
     }
 
     public String getRenderableObjectName();
+
+    public Renderable deepCopy();
 }

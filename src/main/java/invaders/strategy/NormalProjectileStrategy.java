@@ -8,4 +8,9 @@ public class NormalProjectileStrategy implements ProjectileStrategy{
         double newYPos = p.getPosition().getY() - 2;
         p.getPosition().setY(newYPos);
     }
+
+    @Override
+    public ProjectileStrategy deepCopy() {
+        return new NormalProjectileStrategy();
+    }
 }

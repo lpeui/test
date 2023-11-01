@@ -54,5 +54,17 @@ public class GameState implements Subject {
         this.gameTime = this.gameTime.plus(delta);
         notifyObservers();
     }
+
+    @Override
+    public GameState clone() {
+        GameState clonedState = new GameState();
+
+        clonedState.observers.addAll(this.observers);
+
+        clonedState.score = this.score;
+        clonedState.gameTime = Duration.ofMillis(this.gameTime.toMillis()); // Cloning Duration
+
+        return clonedState;
+    }
 }
 

@@ -159,4 +159,28 @@ public class Enemy implements GameObject, Renderable {
         this.projectileStrategy = projectileStrategy;
     }
 
+    @Override
+    public Enemy deepCopy() {
+        Enemy copiedEnemy = new Enemy(new Vector2D(this.position.getX(), this.position.getY()));
+
+        copiedEnemy.setLives(this.lives);
+        copiedEnemy.setImage(new Image(this.image.getUrl()));
+        copiedEnemy.setImageName(new String(this.imageName));
+        copiedEnemy.setProjectileImage(new Image(this.projectileImage.getUrl())); // Copying projectileImage
+
+        copiedEnemy.xVel = this.xVel;
+
+        for (Projectile p : this.enemyProjectile) {
+            copiedEnemy.enemyProjectile.add((Projectile) p.deepCopy());
+        }
+        for (Projectile p : this.pendingToDeleteEnemyProjectile) {
+            copiedEnemy.pendingToDeleteEnemyProjectile.add((Projectile) p.deepCopy());
+        }
+
+        copiedEnemy.setProjectileStrategy(this.projectileStrategy);
+        copiedEnemy.projectileFactory = this.projectileFactory;
+
+        return copiedEnemy;
+    }
+
 }

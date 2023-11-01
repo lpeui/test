@@ -59,7 +59,7 @@ public class GameWindow {
 
         this.background = new SpaceBackground(model, pane);
 
-        KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model);
+        KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model, this);
 
         scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
         scene.setOnKeyReleased(keyboardInputHandler::handleReleased);
@@ -135,5 +135,17 @@ public class GameWindow {
 
 	public Scene getScene() {
         return scene;
+    }
+
+    public void clearPane() {
+        pane.getChildren().clear();
+        pane.getChildren().add(timerLabel);
+        pane.getChildren().add(scoreLabel);
+        this.background = new SpaceBackground(model, pane);
+
+        KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model, this);
+
+        scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
+        scene.setOnKeyReleased(keyboardInputHandler::handleReleased);
     }
 }

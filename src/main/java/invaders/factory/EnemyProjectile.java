@@ -17,6 +17,7 @@ public class EnemyProjectile extends Projectile{
 
     @Override
     public void update(GameEngine model) {
+        //System.out.println(this.getRenderableObjectName());
         strategy.update(this);
 
         if(this.getPosition().getY()>= model.getGameHeight() - this.getImage().getHeight()){
@@ -37,5 +38,16 @@ public class EnemyProjectile extends Projectile{
     @Override
     public String getRenderableObjectName() {
         return "EnemyProjectile";
+    }
+
+    @Override
+    public EnemyProjectile deepCopy() {
+        ProjectileStrategy copiedStrategy = this.strategy.deepCopy();
+
+        EnemyProjectile copiedProjectile = new EnemyProjectile(new Vector2D(this.getPosition().getX(), this.getPosition().getY()), copiedStrategy, new Image(this.getImage().getUrl())); // Assuming Image copy by URL is sufficient
+        copiedProjectile.setImageName(new String(this.imageName));
+        copiedProjectile.setLives((int) this.getHealth());
+
+        return copiedProjectile;
     }
 }

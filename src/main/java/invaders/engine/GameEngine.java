@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import invaders.ConfigReader;
+import invaders.GameMemento;
 import invaders.GameState;
 import invaders.Observer;
 import invaders.builder.BunkerBuilder;
@@ -40,6 +41,7 @@ public class GameEngine {
 	private int timer = 45;
 	private static final Duration FRAME_DURATION = Duration.ofMillis(17);
 	private GameState gameState = new GameState();
+	private GameMemento savedState;
 
 	public GameEngine(String config){
 		// Read the config here
@@ -186,6 +188,7 @@ public class GameEngine {
 
 	public boolean shootPressed(){
 		if(timer>45 && player.isAlive()){
+			saveState();
 			Projectile projectile = player.shoot();
 			gameObjects.add(projectile);
 			renderables.add(projectile);
@@ -219,5 +222,29 @@ public class GameEngine {
 
 	public GameState getGameState(){
 		return this.gameState;
+	}
+
+	public void restoreState() {
+		if (savedState != null) {
+			this.renderables = savedState.getRenderablesState();
+			this.gameState = savedState.getGameStateState();
+			this.gameObjects = savedState.getGameObjectsState();
+			this.pendingToAddGameObject = savedState.getPendingToAddGameObjectState();
+			this.pendingToRemoveGameObject = savedState.getPendingToRemoveGameObjectState();
+			this.pendingToAddRenderable = savedState.getPendingToAddRenderableState();
+			this.pendingToRemoveRenderable = savedState.getPendingToRemoveRenderableState();
+			savedState = null;
+		}
+	}
+
+	public void saveState() {
+		savedState = new GameMemento(
+				this.getRenderables(),
+				this.getGameState(),
+				this.getGameObjects(),
+				this.getPendingToAddGameObject(),
+				this.getPendingToRemoveGameObject(),
+				this.getPendingToAddRenderable(),
+				this.getPendingToRemoveRenderable());
 	}
 }

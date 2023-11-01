@@ -15,4 +15,9 @@ public class RedState implements BunkerState {
         // bunker.
 
     }
+
+    @Override
+    public BunkerState deepCopy(Bunker bunker) {
+        return new YellowState(bunker);
+    }
 }

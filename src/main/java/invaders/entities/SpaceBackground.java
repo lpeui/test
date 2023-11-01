@@ -71,4 +71,11 @@ public class SpaceBackground implements Renderable {
 	public String getRenderableObjectName() {
 		return "background";
 	}
+
+	@Override
+	public SpaceBackground deepCopy() {
+		/*GameEngine copiedEngine = this.model;
+		SpaceBackground copiedBackground = new SpaceBackground(copiedEngine, this.pane);  // Using the same pane*/
+		return null;
+	}
 }

@@ -30,13 +30,14 @@ public class Player implements Moveable, Renderable {
 
 
     public Player(JSONObject playerInfo){
-        int x = ((Long)((JSONObject)(playerInfo.get("position"))).get("x")).intValue();
-        int y = ((Long)((JSONObject)(playerInfo.get("position"))).get("y")).intValue();
+        double x = ((Number)((JSONObject)(playerInfo.get("position"))).get("x")).doubleValue();
+        double y = ((Number)((JSONObject)(playerInfo.get("position"))).get("y")).doubleValue();
+
 
         this.image = new Image(new File("src/main/resources/player.png").toURI().toString(), width, height, true, true);
         this.position = new Vector2D(x,y);
-        this.health = ((Long) playerInfo.get("lives")).intValue();
-        this.velocity = ((Long) playerInfo.get("speed")).intValue();
+        this.health = ((Number) playerInfo.get("lives")).intValue();
+        this.velocity = ((Number) playerInfo.get("speed")).intValue();
 
     }
 
@@ -112,6 +113,21 @@ public class Player implements Moveable, Renderable {
     @Override
     public String getImageName(){
         return "Player";
+    }
+    @Override
+    public Player deepCopy() {
+        // Constructing a mock JSONObject for the sake of copying
+        JSONObject mockPlayerInfo = new JSONObject();
+        JSONObject positionInfo = new JSONObject();
+        positionInfo.put("x", this.position.getX());
+        positionInfo.put("y", this.position.getY());
+        mockPlayerInfo.put("position", positionInfo);
+        mockPlayerInfo.put("lives", this.health);
+        mockPlayerInfo.put("speed", this.velocity);
+
+        Player copiedPlayer = new Player(mockPlayerInfo);
+
+        return copiedPlayer;
     }
 
 }

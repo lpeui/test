@@ -59,9 +59,21 @@ public abstract class Projectile implements Renderable, GameObject {
         return this.lives;
     }
 
+
     @Override
     public boolean isAlive() {
         return this.lives>0;
     }
+
+    @Override
+    public String getImageName(){
+        return "projectile";
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public abstract Projectile deepCopy();
 
 }

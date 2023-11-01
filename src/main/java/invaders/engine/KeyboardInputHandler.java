@@ -13,14 +13,16 @@ import java.util.Set;
 
 class KeyboardInputHandler {
     private final GameEngine model;
+    private final GameWindow gameWindow;
     private boolean left = false;
     private boolean right = false;
     private Set<KeyCode> pressedKeys = new HashSet<>();
 
     private Map<String, MediaPlayer> sounds = new HashMap<>();
 
-    KeyboardInputHandler(GameEngine model) {
+    KeyboardInputHandler(GameEngine model,GameWindow gameWindow) {
         this.model = model;
+        this.gameWindow = gameWindow;
 
         // TODO (longGoneUser): Is there a better place for this code?
         URL mediaUrl = getClass().getResource("/shoot.wav");
@@ -58,6 +60,10 @@ class KeyboardInputHandler {
 
         if(right){
             model.rightPressed();
+        }
+        if (keyEvent.getCode().equals(KeyCode.U)) {
+            gameWindow.clearPane(); // Clear the pane
+            model.restoreState();
         }
     }
 

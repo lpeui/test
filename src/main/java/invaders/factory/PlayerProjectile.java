@@ -33,4 +33,12 @@ public class PlayerProjectile extends Projectile {
     public String getRenderableObjectName() {
         return "PlayerProjectile";
     }
+
+    @Override
+    public PlayerProjectile deepCopy() {
+        Vector2D copiedPosition = this.getPosition().deepCopy();
+        ProjectileStrategy copiedStrategy = this.strategy.deepCopy(); // using the deepCopy method from strategy
+        PlayerProjectile copiedProjectile = new PlayerProjectile(copiedPosition, copiedStrategy);
+        return copiedProjectile;
+    }
 }
