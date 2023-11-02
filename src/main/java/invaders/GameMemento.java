@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameMemento {
-    private final List<Renderable> renderablesState;
-    private final GameState gameStateState;
-    private final List<GameObject> gameObjectsState;
-    private final List<GameObject> pendingToAddGameObjectState;
-    private final List<GameObject> pendingToRemoveGameObjectState;
-    private final List<Renderable> pendingToAddRenderableState;
-    private final List<Renderable> pendingToRemoveRenderableState;
+    private  List<Renderable> renderablesState;
+    private  GameState gameStateState;
+    private  List<GameObject> gameObjectsState;
+    private  List<GameObject> pendingToAddGameObjectState;
+    private  List<GameObject> pendingToRemoveGameObjectState;
+    private  List<Renderable> pendingToAddRenderableState;
+    private  List<Renderable> pendingToRemoveRenderableState;
 
 
     public GameMemento(
@@ -22,7 +22,7 @@ public class GameMemento {
             List<GameObject> gameObjects,
             List<GameObject> pendingToAddGameObject,
             List<GameObject> pendingToRemoveGameObject,
-            List<Renderable> pendingToAddRenderable,
+            List<Renderable > pendingToAddRenderable,
             List<Renderable> pendingToRemoveRenderable) {
 
         this.renderablesState = deepCopyRenderables(renderables);

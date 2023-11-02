@@ -143,9 +143,11 @@ public class GameWindow {
         pane.getChildren().add(scoreLabel);
         this.background = new SpaceBackground(model, pane);
 
-        KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model, this);
+
+        /*KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model, this);
 
         scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
-        scene.setOnKeyReleased(keyboardInputHandler::handleReleased);
+        scene.setOnKeyReleased(keyboardInputHandler::handleReleased);*/
     }
+
 }

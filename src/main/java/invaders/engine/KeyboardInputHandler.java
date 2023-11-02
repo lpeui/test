@@ -62,8 +62,21 @@ class KeyboardInputHandler {
             model.rightPressed();
         }
         if (keyEvent.getCode().equals(KeyCode.U)) {
-            gameWindow.clearPane(); // Clear the pane
-            model.restoreState();
+            //gameWindow.clearPane(); // Clear the pane
+            //model.undoPressed();
+            model.restoreState(gameWindow);
+        }
+        if (keyEvent.getCode().equals(KeyCode.Z)) {
+            model.cheatRemoveSlowProjectiles();
+        }
+        if (keyEvent.getCode().equals(KeyCode.X)) {
+            model.cheatRemoveFastProjectiles();
+        }
+        if (keyEvent.getCode().equals(KeyCode.C)) {
+            model.cheatRemoveSlowAlien();
+        }
+        if (keyEvent.getCode().equals(KeyCode.V)) {
+            model.cheatRemoveFastAlien();
         }
     }
 
