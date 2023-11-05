@@ -40,7 +40,7 @@ class KeyboardInputHandler {
         pressedKeys.add(keyEvent.getCode());
 
         if (keyEvent.getCode().equals(KeyCode.SPACE)) {
-            if (model.shootPressed()) {
+            if (model.shootPressed()){
                 MediaPlayer shoot = sounds.get("shoot");
                 shoot.stop();
                 shoot.play();
@@ -62,22 +62,15 @@ class KeyboardInputHandler {
             model.rightPressed();
         }
         if (keyEvent.getCode().equals(KeyCode.U)) {
-            //gameWindow.clearPane(); // Clear the pane
-            //model.undoPressed();
             model.restoreState(gameWindow);
         }
-        if (keyEvent.getCode().equals(KeyCode.Z)) {
-            model.cheatRemoveSlowProjectiles();
+        if (isCheatKeyCode(keyEvent.getCode())) {
+            model.activateCheatByKeyCode(keyEvent.getCode());
         }
-        if (keyEvent.getCode().equals(KeyCode.X)) {
-            model.cheatRemoveFastProjectiles();
-        }
-        if (keyEvent.getCode().equals(KeyCode.C)) {
-            model.cheatRemoveSlowAlien();
-        }
-        if (keyEvent.getCode().equals(KeyCode.V)) {
-            model.cheatRemoveFastAlien();
-        }
+    }
+
+    private boolean isCheatKeyCode(KeyCode code) {
+        return code == KeyCode.Z || code == KeyCode.X || code == KeyCode.C || code == KeyCode.V;
     }
 
     void handleReleased(KeyEvent keyEvent) {

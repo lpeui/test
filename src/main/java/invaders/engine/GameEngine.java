@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import invaders.ConfigReader;
-import invaders.GameMemento;
-import invaders.GameState;
-import invaders.Observer;
+import invaders.*;
 import invaders.builder.BunkerBuilder;
 import invaders.builder.Director;
 import invaders.builder.EnemyBuilder;
+import invaders.entities.EntityView;
+import invaders.entities.EntityViewImpl;
 import invaders.factory.Projectile;
 import invaders.gameobject.Bunker;
 import invaders.gameobject.Enemy;
 import invaders.gameobject.GameObject;
 import invaders.entities.Player;
 import invaders.rendering.Renderable;
+import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 import org.json.simple.JSONObject;
 
 /**
@@ -44,6 +45,7 @@ public class GameEngine {
 	private static final Duration FRAME_DURATION = Duration.ofMillis(17);
 	private GameState gameState = new GameState();
 	private GameMemento savedState;
+	private CheatFacade cheatFacade = new CheatFacade(this);
 
 	public GameEngine(String config){
 		// Read the config here
@@ -233,15 +235,16 @@ public class GameEngine {
 		if (savedState != null) {
 			gw.clearPane();
 			this.renderables = new ArrayList<Renderable>();
-			for (Renderable ra: savedState.getRenderablesState()) {
+			for (Renderable ra : savedState.getRenderablesState()) {
 				this.renderables.add(ra);
 			}
 
 			this.gameState = savedState.getGameStateState();
 			this.gameObjects = new ArrayList<GameObject>();
-			for (GameObject go: savedState.getGameObjectsState()) {
+			for (GameObject go : savedState.getGameObjectsState()) {
 				this.gameObjects.add(go);
 			}
+			//gw.setEntityViews(savedState.getEntityViews());
 
 			this.pendingToAddGameObject = savedState.getPendingToAddGameObjectState();
 			this.pendingToRemoveGameObject = savedState.getPendingToRemoveGameObjectState();
@@ -262,67 +265,23 @@ public class GameEngine {
 				this.getPendingToRemoveRenderable());
 	}
 
-	public void cheatRemoveSlowProjectiles() {
-		int slowProjectilesCount = 0;
-
-		Iterator<Renderable> renderIt = renderables.iterator();
-		while (renderIt.hasNext()) {
-			Renderable renderable = renderIt.next();
-			if (renderable.getImageName().equals("slow_bullet")) {
-				slowProjectilesCount++;
-				renderable.takeDamage(1);
-			}
-		}
-
-		// Update score
-		gameState.increaseScore(slowProjectilesCount);
+	public void activateCheatByKeyCode(KeyCode keyCode) {
+		String cheatCode = getCheatCodeForKey(keyCode);
+		cheatFacade.activateCheat(cheatCode);
 	}
 
-	public void cheatRemoveFastProjectiles() {
-		int fastProjectilesCount = 0;
-
-		Iterator<Renderable> renderIt = renderables.iterator();
-		while (renderIt.hasNext()) {
-			Renderable renderable = renderIt.next();
-			if (renderable.getImageName().equals("fast_bullet")) {
-				fastProjectilesCount++;
-				renderable.takeDamage(1);
-			}
+	private String getCheatCodeForKey(KeyCode keyCode) {
+		switch (keyCode) {
+			case Z:
+				return "slowProjectiles";
+			case X:
+				return "fastProjectiles";
+			case C:
+				return "slowAliens";
+			case V:
+				return "fastAliens";
+			default:
+				return null;
 		}
-
-		// Update score
-		gameState.increaseScore(fastProjectilesCount*2);
-	}
-
-	public void cheatRemoveSlowAlien() {
-		int slowAlienCount = 0;
-
-		Iterator<Renderable> renderIt = renderables.iterator();
-		while (renderIt.hasNext()) {
-			Renderable renderable = renderIt.next();
-			if (renderable.getImageName().equals("slow_alien")) {
-				slowAlienCount++;
-				renderable.takeDamage(1);
-			}
-		}
-
-		// Update score
-		gameState.increaseScore(slowAlienCount*3);
-	}
-
-	public void cheatRemoveFastAlien() {
-		int fastAlienCount = 0;
-
-		Iterator<Renderable> renderIt = renderables.iterator();
-		while (renderIt.hasNext()) {
-			Renderable renderable = renderIt.next();
-			if (renderable.getImageName().equals("fast_alien")) {
-				fastAlienCount++;
-				renderable.takeDamage(1);
-			}
-		}
-
-		// Update score
-		gameState.increaseScore(fastAlienCount*4);
 	}
 }

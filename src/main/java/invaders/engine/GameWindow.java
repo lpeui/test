@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import invaders.ConfigReader;
 import invaders.entities.EntityViewImpl;
 import invaders.entities.SpaceBackground;
+import invaders.gameobject.GameObject;
 import javafx.scene.control.Alert;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -132,7 +133,6 @@ public class GameWindow {
         entityViews.removeIf(EntityView::isMarkedForDelete);
 
     }
-
 	public Scene getScene() {
         return scene;
     }
@@ -143,11 +143,6 @@ public class GameWindow {
         pane.getChildren().add(scoreLabel);
         this.background = new SpaceBackground(model, pane);
 
-
-        /*KeyboardInputHandler keyboardInputHandler = new KeyboardInputHandler(this.model, this);
-
-        scene.setOnKeyPressed(keyboardInputHandler::handlePressed);
-        scene.setOnKeyReleased(keyboardInputHandler::handleReleased);*/
     }
 
 }

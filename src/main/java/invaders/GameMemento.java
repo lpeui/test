@@ -1,5 +1,8 @@
 package invaders;
 
+import invaders.engine.GameWindow;
+import invaders.entities.EntityView;
+import invaders.entities.EntityViewImpl;
 import invaders.gameobject.GameObject;
 import invaders.rendering.Renderable;
 
@@ -23,7 +26,8 @@ public class GameMemento {
             List<GameObject> pendingToAddGameObject,
             List<GameObject> pendingToRemoveGameObject,
             List<Renderable > pendingToAddRenderable,
-            List<Renderable> pendingToRemoveRenderable) {
+            List<Renderable> pendingToRemoveRenderable
+           ) {
 
         this.renderablesState = deepCopyRenderables(renderables);
         this.gameStateState = gameState.clone();
@@ -35,11 +39,10 @@ public class GameMemento {
     }
 
 
-
     private List<Renderable> deepCopyRenderables(List<Renderable> renderables) {
         List<Renderable> copiedRenderables = new ArrayList<>();
         for (Renderable r : renderables) {
-            copiedRenderables.add(r.deepCopy());
+            Renderable nr = r.deepCopy();
         }
         return copiedRenderables;
     }
