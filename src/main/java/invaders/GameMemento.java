@@ -41,8 +41,8 @@ public class GameMemento {
 
     private List<Renderable> deepCopyRenderables(List<Renderable> renderables) {
         List<Renderable> copiedRenderables = new ArrayList<>();
-        for (Renderable r : renderables) {
-            Renderable nr = r.deepCopy();
+        for (Renderable re : renderables) {
+            copiedRenderables.add(re.deepCopy());
         }
         return copiedRenderables;
     }

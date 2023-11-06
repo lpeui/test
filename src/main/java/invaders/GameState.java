@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameState implements Subject {
+    // List of observers to be notified on state change
     private List<Observer> observers;
     private int score;
     private Duration gameTime = Duration.ZERO;
@@ -14,7 +15,7 @@ public class GameState implements Subject {
         score = 0;
         gameTime = Duration.ofMinutes(0);
     }
-
+    // Register an observer to be notified
     @Override
     public void registerObserver(Observer o) {
         observers.add(o);
@@ -25,6 +26,7 @@ public class GameState implements Subject {
         observers.remove(o);
     }
 
+    //notify observers of the change
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

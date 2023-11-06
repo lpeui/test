@@ -26,6 +26,7 @@ public class GameWindow {
 	private final int width;
     private final int height;
 	private Scene scene;
+    // Labels for displaying the score and time - part of the observer pattern implementation
     private Label timerLabel;
     private Label scoreLabel;
     private Pane pane;
@@ -42,6 +43,7 @@ public class GameWindow {
 		this.width =  model.getGameWidth();
         this.height = model.getGameHeight();
 
+        // Initialization of the UI elements for score and time
         timerLabel = new Label("Time: 0:00");
         timerLabel.setTextFill(Color.WHITE);
         timerLabel.setLayoutX(10);  // Set x position
@@ -52,7 +54,7 @@ public class GameWindow {
         scoreLabel.setLayoutX(100);  // Set x position
         scoreLabel.setLayoutY(10);  // Set y position
 
-
+        // Adding the labels to the pane
         pane = new Pane();
         pane.getChildren().add(timerLabel);
         pane.getChildren().add(scoreLabel);
@@ -67,6 +69,7 @@ public class GameWindow {
 
     }
 
+    // Accessor methods for the labels, allowing observers to update them
     public Label getTimerLabel() {
         return timerLabel;
     }

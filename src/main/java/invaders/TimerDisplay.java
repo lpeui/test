@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public class TimerDisplay implements Observer {
     private GameState gameState;
-    private Label timerLabel;  // New addition
+    private Label timerLabel;
 
     public TimerDisplay(GameState gameState, Label timerLabel) {
         this.gameState = gameState;

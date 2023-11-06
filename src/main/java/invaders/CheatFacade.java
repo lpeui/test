@@ -14,6 +14,7 @@ public class CheatFacade {
         this.gameState = engine.getGameState();
     }
 
+    // Method to activate a cheat based on a cheat code string
     public void activateCheat(String cheatCode) {
         switch (cheatCode) {
             case "slowProjectiles":
